@@ -15,7 +15,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import static org.junit.Assert.*;
 
 /**
- * Example local unit test, which will execute on the development machine (host).
+ * 编写稍微复杂，但是不需要依赖源码，支持跨进程和webview
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
