@@ -32,13 +32,19 @@ public class ExampleUnitTest {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
         capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "6.0.1");
+        //adb devices查看设备名字
         capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "071ad3b80059be56");
         capabilities.setCapability(MobileCapabilityType.APP, apk.getAbsolutePath());
         capabilities.setCapability(MobileCapabilityType.APP_PACKAGE, BuildConfig.APPLICATION_ID);
+        //解决中文输入
         capabilities.setCapability("unicodeKeyboard", true);
         capabilities.setCapability("resetkeyboard", true);
-//        capabilities.setCapability("app", "/path/to/some.apk");
+        //PC端的appium服务器
         URL url = new URL("http://127.0.0.1:4723/wd/hub");
+
+        //html5 app,需要chrome device，微信小程序
+        //RemoteWebDriver webDriver=new RemoteWebDriver(url, capabilities);
+        //普通app
         AppiumDriver driver = new AppiumDriver(url, capabilities);
         if(!driver.isAppInstalled(BuildConfig.APPLICATION_ID)){
             driver.installApp(apk.getAbsolutePath());
@@ -57,7 +63,7 @@ public class ExampleUnitTest {
         }
         Thread.sleep(3000);
         try {
-            //R.id.fab
+            //点击R.id.fab
             WebElement webElement = driver.findElementById(BuildConfig.APPLICATION_ID+":id/fab");
             if (webElement != null) {
                 webElement.click();
@@ -67,9 +73,9 @@ public class ExampleUnitTest {
         }
         Thread.sleep(3000);
         try {
-            //R.id.fab
             WebElement webElement = driver.findElementById(BuildConfig.APPLICATION_ID+":id/edt01");
             if (webElement != null) {
+                //输入文字
                 webElement.sendKeys("你好");
                 Thread.sleep(1000);
                 assertEquals("你好", webElement.getText());
